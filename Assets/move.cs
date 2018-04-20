@@ -5,6 +5,11 @@ using UnityEngine;
 public class move : MonoBehaviour {
     public float speed;
     Rigidbody rigidbody;
+    public GameObject shot;
+    public float fireRate;
+    public Transform shotSpawn;
+
+    float nextFire;
 	// Use this for initialization
 	void Start () {
         rigidbody = GetComponent<Rigidbody>();
@@ -12,6 +17,11 @@ public class move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        }
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
